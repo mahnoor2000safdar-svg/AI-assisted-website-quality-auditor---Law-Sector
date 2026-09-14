@@ -1,1 +1,122 @@
-
+[
+  {
+    "website": "RKM Associates",
+    "automatically_detected_facts": {
+      "url": "https://rkmassociates.com/",
+      "status": "Accessible",
+      "error": null,
+      "contact_info": true,
+      "contact_form": true,
+      "cta": true,
+      "faq": false,
+      "social_links": true,
+      "meta_title": true,
+      "meta_description": false,
+      "mobile_viewport": true,
+      "images_without_alt": 10,
+      "images_total": 13,
+      "page_load_signal": true,
+      "response_time_seconds": 2.18
+    }
+  },
+  {
+    "website": "PK Legal and Associates",
+    "automatically_detected_facts": {
+      "url": "https://pklegal.org/",
+      "status": "Accessible",
+      "error": null,
+      "contact_info": true,
+      "contact_form": false,
+      "cta": true,
+      "faq": false,
+      "social_links": true,
+      "meta_title": true,
+      "meta_description": true,
+      "mobile_viewport": true,
+      "images_without_alt": 1,
+      "images_total": 9,
+      "page_load_signal": true,
+      "response_time_seconds": 1.65
+    }
+  },
+  {
+    "website": "Wasif & Fakhar Advocates",
+    "automatically_detected_facts": {
+      "url": "https://www.wasifandfakhar.com/",
+      "status": "Accessible",
+      "error": null,
+      "contact_info": true,
+      "contact_form": false,
+      "cta": true,
+      "faq": false,
+      "social_links": false,
+      "meta_title": true,
+      "meta_description": true,
+      "mobile_viewport": false,
+      "images_without_alt": 6,
+      "images_total": 12,
+      "page_load_signal": true,
+      "response_time_seconds": 2.09
+    }
+  },
+  {
+    "website": "SR Law",
+    "automatically_detected_facts": {
+      "url": "https://srlaw.com.pk/",
+      "status": "Accessible",
+      "error": null,
+      "contact_info": true,
+      "contact_form": false,
+      "cta": true,
+      "faq": false,
+      "social_links": false,
+      "meta_title": true,
+      "meta_description": false,
+      "mobile_viewport": true,
+      "images_without_alt": 15,
+      "images_total": 17,
+      "page_load_signal": true,
+      "response_time_seconds": 3.58
+    }
+  },
+  {
+    "website": "AwaisLaw DRT",
+    "automatically_detected_facts": {
+      "url": "https://www.awaislaw.com/",
+      "status": "Accessible",
+      "error": null,
+      "contact_info": true,
+      "contact_form": true,
+      "cta": false,
+      "faq": false,
+      "social_links": true,
+      "meta_title": true,
+      "meta_description": true,
+      "mobile_viewport": true,
+      "images_without_alt": 8,
+      "images_total": 12,
+      "page_load_signal": true,
+      "response_time_seconds": 1.74
+    }
+  },
+  {
+    "website": "Junaid, Wasim & Co",
+    "automatically_detected_facts": {
+      "url": "https://www.jwcolegal.com/",
+      "status": "Accessible",
+      "error": null,
+      "contact_info": true,
+      "contact_form": false,
+      "cta": false,
+      "faq": false,
+      "social_links": false,
+      "meta_title": true,
+      "meta_description": true,
+      "mobile_viewport": true,
+      "images_without_alt": 0,
+      "images_total": 4,
+      "page_load_signal": true,
+      "response_time_seconds": 1.48
+    }
+  }
+]
