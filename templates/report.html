@@ -1,1 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>AI-Assisted Law Website Quality Auditor</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            color: #222;
+        }
+
+        header {
+            background: #17202a;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0 0 12px;
+            font-size: 32px;
+        }
+
+        header p {
+            margin: 0;
+            color: #d5d8dc;
+            font-size: 16px;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 1150px;
+            margin: 35px auto;
+        }
+
+        .summary {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .summary h2 {
+            margin-top: 0;
+        }
+
+        .website-card {
+            background: white;
+            margin-bottom: 35px;
+            padding: 28px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .website-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .website-header h2 {
+            margin: 0 0 8px;
+        }
+
+        .url {
+            color: #555;
+            word-break: break-all;
+        }
+
+        .scores {
+            text-align: right;
+        }
+
+        .rule-score {
+            font-size: 18px;
+            color: #555;
+        }
+
+        .ai-score {
+            font-size: 34px;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .priority {
+            display: inline-block;
+            padding: 7px 14px;
+            border-radius: 20px;
+            background: #eee;
+            margin-top: 8px;
+            font-weight: bold;
+        }
+
+        h3 {
+            margin-top: 30px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 9px;
+        }
+
+        .facts {
+            display: grid;
+            grid-template-columns: repeat(
+                auto-fit,
+                minmax(230px, 1fr)
+            );
+            gap: 10px;
+        }
+
+        .fact {
+            padding: 13px;
+            background: #f8f9f9;
+            border-radius: 7px;
+        }
+
+        .found {
+            font-weight: bold;
+        }
+
+        .missing {
+            font-weight: bold;
+        }
+
+        .ai-box {
+            background: #f0f4f8;
+            padding: 22px;
+            border-radius: 10px;
+            border-left: 5px solid #34495e;
+        }
+
+        .ai-judgment {
+            line-height: 1.7;
+        }
+
+        .feature-list,
+        .recommendation-list {
+            line-height: 1.8;
+        }
+
+        .recommendation-list li {
+            margin-bottom: 8px;
+        }
+
+        .error {
+            background: #fdecea;
+            padding: 15px;
+            border-radius: 8px;
+            color: #922b21;
+            margin-top: 20px;
+        }
+
+        .method-box {
+            background: #fff8e1;
+            padding: 18px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .status {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            padding: 35px;
+            color: #666;
+        }
+
+        @media (max-width: 600px) {
+
+            header h1 {
+                font-size: 25px;
+            }
+
+            .website-card {
+                padding: 20px;
+            }
+
+            .scores {
+                text-align: left;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <h1>AI-Assisted Website Quality Auditor</h1>
+
+    <p>
+        Law Sector | Automated Website Facts + AI Analysis
+    </p>
+
+</header>
+
+
+<div class="container">
+
+
+    <!-- =============================================== -->
+    <!-- PROJECT SUMMARY -->
+    <!-- =============================================== -->
+
+    <div class="summary">
+
+        <h2>Audit Overview</h2>
+
+        <p>
+            This tool evaluates law-sector business websites
+            using automatically detected website signals and
+            AI-assisted judgment.
+        </p>
+
+        <p>
+            <strong>Important:</strong>
+            Automatically detected facts are kept separate from
+            AI-generated judgments and recommendations.
+        </p>
+
+    </div>
+
+
+    <!-- =============================================== -->
+    <!-- WEBSITE RESULTS -->
+    <!-- =============================================== -->
+
+    {% for item in results %}
+
+
+    <div class="website-card">
+
+
+        <!-- WEBSITE HEADER -->
+
+        <div class="website-header">
+
+            <div>
+
+                <h2>
+                    {{ item.name }}
+                </h2>
+
+                <div class="url">
+                    {{ item.audit.url }}
+                </div>
+
+                <div class="status">
+
+                    Status:
+                    {{ item.audit.status }}
+
+                </div>
+
+            </div>
+
+
+            <div class="scores">
+
+                <div class="rule-score">
+
+                    Rule-Based Score:
+                    <strong>
+                        {{ item.rule_score }}/100
+                    </strong>
+
+                </div>
+
+                <div class="ai-score">
+
+                    AI Score:
+                    {{ item.ai.ai_score }}/100
+
+                </div>
+
+                <div class="priority">
+
+                    Priority:
+                    {{ item.ai.priority }}
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ERROR -->
+
+        {% if item.audit.error %}
+
+        <div class="error">
+
+            <strong>
+                Audit Limitation:
+            </strong>
+
+            {{ item.audit.error }}
+
+            <p>
+                Because the website could not be fully accessed,
+                the audit result may be limited.
+            </p>
+
+        </div>
+
+        {% endif %}
+
+
+        <!-- =========================================== -->
+        <!-- 1. AUTOMATIC FACTS -->
+        <!-- =========================================== -->
+
+        <h3>
+            1. Automatically Detected Facts
+        </h3>
+
+
+        <div class="facts">
+
+
+            <div class="fact">
+
+                Contact Information:
+
+                {% if item.audit.contact_info %}
+
+                    <span class="found">
+                        Found
+                    </span>
+
+                {% else %}
+
+                    <span class="missing">
+                        Not Found
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+
+            <div class="fact">
+
+                Contact Form:
+
+                {% if item.audit.contact_form %}
+
+                    <span class="found">
+                        Found
+                    </span>
+
+                {% else %}
+
+                    <span class="missing">
+                        Not Found
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+
+            <div class="fact">
+
+                CTA:
+
+                {% if item.audit.cta %}
+
+                    <span class="found">
+                        Found
+                    </span>
+
+                {% else %}
+
+                    <span class="missing">
+                        Not Found
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+
+            <div class="fact">
+
+                FAQ:
+
+                {% if item.audit.faq %}
+
+                    <span class="found">
+                        Found
+                    </span>
+
+                {% else %}
+
+                    <span class="missing">
+                        Not Found
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+
+            <div class="fact">
+
+                Social Links:
+
+                {% if item.audit.social_links %}
+
+                    <span class="found">
+                        Found
+                    </span>
+
+                {% else %}
+
+                    <span class="missing">
+                        Not Found
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+
+            <div class="fact">
+
+                Meta Title:
+
+                {% if item.audit.meta_title %}
+
+                    <span class="found">
+                        Found
+                    </span>
+
+                {% else %}
+
+                    <span class="missing">
+                        Not Found
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+
+            <div class="fact">
+
+                Meta Description:
+
+                {% if item.audit.meta_description %}
+
+                    <span class="found">
+                        Found
+                    </span>
+
+                {% else %}
+
+                    <span class="missing">
+                        Not Found
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+
+            <div class="fact">
+
+                Mobile Viewport:
+
+                {% if item.audit.mobile_viewport %}
+
+                    <span class="found">
+                        Detected
+                    </span>
+
+                {% else %}
+
+                    <span class="missing">
+                        Not Detected
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+
+            <div class="fact">
+
+                Images:
+
+                {{ item.audit.images_total }}
+
+            </div>
+
+
+            <div class="fact">
+
+                Images Without Alt:
+
+                {{ item.audit.images_without_alt }}
+
+            </div>
+
+
+            <div class="fact">
+
+                Page Load Signal:
+
+                {% if item.audit.page_load_signal %}
+
+                    <span class="found">
+                        Successful
+                    </span>
+
+                {% else %}
+
+                    <span class="missing">
+                        Failed
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+
+            <div class="fact">
+
+                Response Time:
+
+                {% if item.audit.response_time_seconds %}
+
+                    {{ item.audit.response_time_seconds }}
+                    seconds
+
+                {% else %}
+
+                    N/A
+
+                {% endif %}
+
+            </div>
+
+
+        </div>
+
+
+        <!-- =========================================== -->
+        <!-- 2. RULE BASED -->
+        <!-- =========================================== -->
+
+        <h3>
+            2. Rule-Based Findings
+        </h3>
+
+
+        <p>
+
+            The rule-based system calculates a score from
+            automatically detected website features.
+
+        </p>
+
+
+        <p>
+
+            <strong>
+                Rule-Based Score:
+            </strong>
+
+            {{ item.rule_score }}/100
+
+        </p>
+
+
+        <ul>
+
+            {% for recommendation in item.rule_recommendations %}
+
+            <li>
+                {{ recommendation }}
+            </li>
+
+            {% endfor %}
+
+        </ul>
+
+
+        <!-- =========================================== -->
+        <!-- 3. AI ANALYSIS -->
+        <!-- =========================================== -->
+
+        <h3>
+            3. AI-Generated Judgment & Recommendations
+        </h3>
+
+
+        <div class="ai-box">
+
+
+            <p>
+
+                <strong>
+                    AI Score:
+                </strong>
+
+                {{ item.ai.ai_score }}/100
+
+            </p>
+
+
+            <p>
+
+                <strong>
+                    Priority:
+                </strong>
+
+                {{ item.ai.priority }}
+
+            </p>
+
+
+            <p class="ai-judgment">
+
+                <strong>
+                    AI Judgment:
+                </strong>
+
+                {{ item.ai.judgment }}
+
+            </p>
+
+
+            <!-- Missing Features -->
+
+            <h4>
+                Missing Features
+            </h4>
+
+
+            {% if item.ai.missing_features %}
+
+            <ul class="feature-list">
+
+                {% for feature in item.ai.missing_features %}
+
+                <li>
+                    {{ feature }}
+                </li>
+
+                {% endfor %}
+
+            </ul>
+
+            {% else %}
+
+            <p>
+                No major missing features identified.
+            </p>
+
+            {% endif %}
+
+
+            <!-- Recommendations -->
+
+            <h4>
+                AI Recommendations
+            </h4>
+
+
+            <ul class="recommendation-list">
+
+                {% for recommendation in item.ai.recommendations %}
+
+                <li>
+                    {{ recommendation }}
+                </li>
+
+                {% endfor %}
+
+            </ul>
+
+
+        </div>
+
+
+    </div>
+
+
+    {% endfor %}
+
+
+    <!-- =============================================== -->
+    <!-- METHODOLOGY -->
+    <!-- =============================================== -->
+
+    <div class="summary">
+
+        <h2>
+            Methodology
+        </h2>
+
+        <p>
+
+            <strong>Step 1:</strong>
+            Python requests and BeautifulSoup automatically
+            extract website signals.
+
+        </p>
+
+        <p>
+
+            <strong>Step 2:</strong>
+            The extracted facts are converted into structured
+            JSON data.
+
+        </p>
+
+        <p>
+
+            <strong>Step 3:</strong>
+            A rule-based scoring system evaluates basic website
+            completeness.
+
+        </p>
+
+        <p>
+
+            <strong>Step 4:</strong>
+            The structured facts are provided to an LLM manually
+            for judgment and recommendations.
+
+        </p>
+
+        <p>
+
+            <strong>Step 5:</strong>
+            AI recommendations are reviewed against the actual
+            website before being treated as final findings.
+
+        </p>
+
+
+        <div class="method-box">
+
+            <strong>
+                Human Double-Check:
+            </strong>
+
+            Automated checks cannot fully determine design quality,
+            legal content accuracy, real mobile responsiveness,
+            usability, or the quality of client experience.
+            These areas should be manually reviewed.
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<footer>
+
+    AI-Assisted Law Website Quality Auditor
+    <br>
+   
+
+</footer>
+
+
+</body>
+
+</html>
